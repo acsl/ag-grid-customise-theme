@@ -1,52 +1,77 @@
-// config/webpack.dev.js
-var webpack = require('webpack');
-var path = require('path');
+const autoprefixer = require('autoprefixer');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const svgMinOptions = {
+  plugins: [
+    { cleanupAttrs: true },
+    { removeDoctype: true },
+    { removeComments: true },
+    { removeMetadata: true },
+    { removeTitle: true },
+    { removeDesc: true },
+    { removeEditorsNSData: true },
+    { removeUselessStrokeAndFill: true },
+    { cleanupIDs: true },
+    { collapseGroups: true },
+    { convertShapeToPath: true }
+  ]
+};
 
 module.exports = {
     devtool: 'cheap-module-eval-source-map',
 
-    entry: './src/grid.js',
+    entry: {
+      'ag-grid-acsl': [ './src/styles.scss', './src/grid.js' ]
+    },
 
     output: {
-        filename: 'bundle.js'
+        path: __dirname + '/dist',
+        publicPath: '/dist/',
+        filename: '[name].js'
     },
 
-    module: {
-        loaders: [
-            {
-                test: /\.ts$/,
-                loader: 'ts-loader'
-            },
-            {
-                test: /\.html$/,
-                loader: 'html-loader'
-            },
-            {
-                test: /\.scss$/,
-                    use: ['style-loader?sourceMap=true', 'css-loader?sourceMap=true', 'sass-loader?sourceMap=true']
-            },
-            {
-                test: /\.svg$/,
-                use: [
-                    {loader: 'url-loader'},
-                    {
-                        loader: 'svg-colorize-loader',
-                        options: {
-                            color1: '#000000',
-                            color2: '#FFFFFF'
-                        }
-                    }
-                ]
-            }
-        ]
-    },
-
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: 'index.html'
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          //resolve-url-loader may be chained before sass-loader if necessary
+          use: [
+            { loader: 'css-loader', options: { minimize: false } } ,
+            'sass-loader',
+            { loader: 'postcss-loader', options: { syntax: 'postcss-scss', plugins: [ autoprefixer() ] } },
+          ]
         })
+      },
+      {
+        test: /\.(svg)$/,
+        use: [
+          'cache-loader',
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192
+            }
+          },
+          {   loader: 'image-webpack-loader',
+            options: {
+              svgo: svgMinOptions
+            }
+          },
+          {
+            loader: 'svg-colorize-loader',
+            options: {
+              color1: "#000000",
+              color2: "#FFFFFF"
+            }
+          }
+        ]
+      }
     ]
+  },
+
+  plugins: [
+    new ExtractTextPlugin('[name].css')
+  ]
 };
