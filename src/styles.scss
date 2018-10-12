@@ -2,8 +2,7 @@
 // Up-to-date list of variables is available in the source code: https://github.com/ag-grid/ag-grid/blob/latest/src/styles/theme-fresh.scss
 
 // Temporary, due to bug in 17.0.0. should use only $icons-path:  "~ag-grid/src/styles/material-icons/"
-$icons-path: "~ag-grid/src/styles/icons/";
-$ag-mat-icons-path: "~ag-grid/src/styles/material-icons/";
+// $ag-mat-icons-path: "~ag-grid/src/styles/material-icons/";
 
 // changes the border color
 // $border-color: #FF0000;
@@ -18,12 +17,42 @@ $ag-mat-icons-path: "~ag-grid/src/styles/material-icons/";
 // $cell-horizontal-padding: 2px;
 
 // changes the default icon color
-$icon-color: #303f9f;
+// $icon-color: #303f9f;
 // changes the selected checkbox color
-$accent-color: #ffa000;
+// $accent-color: #ffa000;
 
-@import "~ag-grid/src/styles/ag-grid.scss";
-@import "~ag-grid/src/styles/ag-theme-material.scss";
+$grid-size: 5px;
+$header-height: 32px;
+
+
+$font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+$font-size: 13px;
+$font-weight: normal;
+
+$secondary-font-size: 14px;
+$secondary-font-weight: 700;
+
+$header-color: #555; //Added
+$header-background-color: #fff;
+$foreground-color: #555;
+
+$border-color: #ddd;
+
+$odd-row-background-color: #fafafa;
+
+$active: #4d7496;
+
+$range-selection-background-color: #afd9ee;
+$selected-color: #d9edf7;
+$selected-border-color: #bce8f1; //Added
+
+$cell-horizontal-padding: 8px;
+
+$icons-path: "~ag-grid-community/src/styles/icons/";
+@import "~ag-grid-community/src/styles/ag-grid.scss";
+
+$icons-path: "~ag-grid-community/src/styles/balham-icons/";
+@import "~ag-grid-community/src/styles/ag-theme-balham.scss";
 
 // for example purposes, remove margin and padding of the grid
 html,
@@ -31,4 +60,101 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
+}
+.ag-theme-balham {
+  label {
+    font-weight: normal;
+  }
+
+  .ag-header-cell-text {
+    font-size: $secondary-font-size;
+    font-weight: $secondary-font-weight;
+  }
+
+  .ag-header {
+    color: $header-color;
+    border-bottom: 2px solid $border-color;
+  }
+
+  .ag-header-cell {
+    line-height: normal;
+    padding-top: 6px;
+    padding-bottom: 6px;
+
+    .ag-header-cell-text {
+      white-space: pre-line;
+    }
+  }
+
+  .ag-header-cell::after,
+  .ag-header-group-cell::after {
+    border-right: 1px solid $border-color;
+    height: 100%;
+    margin-top: 0;
+  }
+
+  .ag-header-icon .ag-icon {
+    height: 24px;
+  }
+
+  .ag-row {
+    border-bottom-color: $border-color;
+  }
+
+  .ag-row-selected {
+    border-bottom-color: $selected-border-color;
+  }
+
+  .ag-cell {
+    border-right-color: $border-color;
+  }
+
+  .ag-cell-focus {
+    border-right-color: $active;
+    background-color: $range-selection-background-color;
+  }
+
+  .ag-menu {
+    .ag-menu-option-active {
+      background: #d9edf7;
+      color: #3a87ad;
+    }
+  }
+
+  .ag-lbl-overlay {
+    z-index: 2;
+  }
+
+  .ag-overlay-loading-wrapper {
+    background-color: rgba(255,255,255,0.667);
+    vertical-align: top;
+    padding-top: 72px;
+  }
+
+  .ag-overlay-loading-center {
+    color: $active;
+    font-size: 30px;
+    border: 0;
+
+    i {
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .ag-primary-cols-filter, .ag-filter-filter {
+    padding: inherit;
+  }
+
+  .ag-filter-panel .ag-header-cell-text {
+    font-size: $font-size;
+    font-weight: $font-weight;
+  }
+
+  .ag-tool-panel-wrapper .ag-filter-panel .ag-filter-toolpanel-instance {
+    color: $foreground-color;
+  }
+
+
+
 }

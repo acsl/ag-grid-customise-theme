@@ -1,5 +1,5 @@
 require('./styles.scss');
-var Grid = require('ag-grid').Grid;
+var Grid = require('ag-grid-community').Grid;
 require('ag-grid-enterprise');
 
 // create cols, one for each letter
@@ -21,7 +21,7 @@ for (var i = 0; i<100; i++) {
 var gridOptions = {
 
     // we do not hide the menu icons, so easier to see any style changes that impact the icons
-    suppressMenuHide: true,
+    suppressMenuHide: false,
 
     defaultColDef: {
         // make all cols more narrow
@@ -34,9 +34,12 @@ var gridOptions = {
     enableFilter: true,
     enableStatusBar: true,
     enableRangeSelection: true,
+    headerHeight: 32,
+    rowHeight: 32,
 
     columnDefs: columnDefs,
     rowData: rowData
 };
 
+// noinspection JSCheckFunctionSignatures
 new Grid(document.querySelector('#myGrid'), gridOptions);
