@@ -52,7 +52,7 @@ $icons-path: "~ag-grid-community/src/styles/icons/";
 @import "~ag-grid-community/src/styles/ag-grid.scss";
 
 $icons-path: "~ag-grid-community/src/styles/balham-icons/";
-@import "~ag-grid-community/src/styles/ag-theme-balham.scss";
+@import "~ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham.scss";
 
 // for example purposes, remove margin and padding of the grid
 html,
@@ -69,6 +69,7 @@ body {
   .ag-header-cell-text {
     font-size: $secondary-font-size;
     font-weight: $secondary-font-weight;
+    white-space: pre-line;
   }
 
   .ag-header {
@@ -78,7 +79,7 @@ body {
 
   .ag-header-cell {
     line-height: normal;
-    padding-top: 6px;
+    padding-top: 4px;
     padding-bottom: 6px;
 
     .ag-header-cell-text {
@@ -93,20 +94,33 @@ body {
     margin-top: 0;
   }
 
+  .ag-icon {
+    font-size: $secondary-font-size;
+    line-height: 14px;
+  }
+
   .ag-header-icon .ag-icon {
-    height: 24px;
+    font-size: 16px;
   }
 
   .ag-row {
-    border-bottom-color: $border-color;
-  }
+    border-color: $border-color;
 
-  .ag-row-selected {
-    border-bottom-color: $selected-border-color;
+    &.ag-row-selected {
+      border-color: $selected-border-color;
+    }
   }
 
   .ag-cell {
     border-right-color: $border-color;
+
+    .ag-icon {
+      vertical-align: baseline;
+    }
+
+    .ag-selection-checkbox {
+      margin-top: 2.5px;
+    }
   }
 
   .ag-cell-focus {
@@ -155,6 +169,9 @@ body {
     color: $foreground-color;
   }
 
-
-
+  .ag-ltr {
+    .ag-cell {
+      border-right-color: $border-color;
+    }
+  }
 }

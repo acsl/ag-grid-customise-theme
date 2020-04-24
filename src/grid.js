@@ -5,7 +5,7 @@ require('ag-grid-enterprise');
 // create cols, one for each letter
 var columnDefs = [];
 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach( function(letter) {
-    columnDefs.push({field: letter});
+    columnDefs.push({field: letter, resizable: true });
 });
 
 // create 100 rows, and fill with random numbers
@@ -26,7 +26,9 @@ var gridOptions = {
     defaultColDef: {
         // make all cols more narrow
         width: 100,
-        filter: 'number'
+        filter: 'number',
+        headerCheckboxSelection: isFirstColumn,
+        checkboxSelection: isFirstColumn
     },
 
     // enable these, so they can be demonstrated
@@ -36,10 +38,16 @@ var gridOptions = {
     enableRangeSelection: true,
     headerHeight: 32,
     rowHeight: 32,
-
+    rowSelection: 'multiple',
     columnDefs: columnDefs,
     rowData: rowData
 };
+
+function isFirstColumn(params) {
+    var displayedColumns = params.columnApi.getAllDisplayedColumns();
+    var thisIsFirstColumn = displayedColumns[0] === params.column;
+    return thisIsFirstColumn;
+}
 
 // noinspection JSCheckFunctionSignatures
 new Grid(document.querySelector('#myGrid'), gridOptions);
