@@ -1,90 +1,76 @@
-
-
 // ag-grid.scss defines structural styles and should be imported first
 @import "~ag-grid-community/src/styles/ag-grid.scss";
-@import "~ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham-mixin.scss";
-
-// Fonts from https://fontawesome.com/
-@import "~@fortawesome/fontawesome-free/scss/fontawesome";
-@import "~@fortawesome/fontawesome-free/scss/regular";
-@import "~@fortawesome/fontawesome-free/scss/solid";
-@import "~@fortawesome/fontawesome-free/scss/brands";
+@import "~ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin.scss";
 
 
-.ag-theme-balham {
-  @include ag-theme-balham((
-    header-height: 80px,
-    row-height: 50px,
-    row-hover-color: rgb(189, 64, 189),
-    header-background-color: lightblue,
+$font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+$secondary-font-size: 14px;
+$secondary-font-weight: 700;
+$font-size: 12px; //alpine adds 1
+$header-background-color: #fff;
+$foreground-color: #555;
+$border-radius: 0;
+$border-color: #ddd;
+$odd-row-background-color: #fafafa;
+$range-selection-background-color: #afd9ee;
+$active-color: #4d7496;
+$cell-horizontal-padding: 8px;
 
-    // Use Font Awesome for icons
-    icon-font-family: "Font Awesome 5 Free",
-    // The @imports above embed the Font Awesome data, so set icons-data to null to avoid
-    // the theme's default font from being embedded too
-    icons-data: null,
-    // Map ag-Grid icon names to Font Awesome character codes
-    icons-font-codes: (
-        "aggregation": "\f247",
-        "arrows": "\f0b2",
-        "asc": "\f062",
-        "cancel": "\f057",
-        "chart": "\f080",
-        "color-picker": "\f576",
-        "columns": "\f0db",
-        "contracted": "\f146",
-        "copy": "\f0c5",
-        "cross": "\f00d",
-        "desc": "\f063",
-        "expanded": "\f0fe",
-        "eye-slash": "\f070",
-        "eye": "\f06e",
-        "filter": "\f0b0",
-        "first": "\f100",
-        "grip": "\f58e",
-        "group": "\f5fd",
-        "last": "\f101",
-        "left": "\f060",
-        "linked": "\f0c1",
-        "loading": "\f110",
-        "maximize": "\f2d0",
-        "menu": "\f0c9",
-        "minimize": "\f2d1",
-        "next": "\f105",
-        "none": "\f338",
-        "not-allowed": "\f05e",
-        "paste": "\f0ea",
-        "pin": "\f276",
-        "pivot": "\f074",
-        "previous": "\f104",
-        "right": "\f061",
-        "save": "\f0c7",
-        "small-down": "\f107",
-        "small-left": "\f104",
-        "small-right": "\f105",
-        "small-up": "\f106",
-        "tick": "\f00c",
-        "tree-closed": "\f105",
-        "tree-indeterminate": "\f068",
-        "tree-open": "\f107",
-        "unlinked": "\f127",
-    )
+.ag-theme-alpine {
+  @include ag-theme-alpine((
+    font-family: $font-family,
+    font-size: $font-size,
+    foreground-color: $foreground-color,
+
+    header-background-color: $header-background-color,
+    header-column-separator: true,
+    header-column-separator-color: $border-color,
+    header-column-resize-handle: false,
+
+    border-radius: $border-radius,
+    border-color: $border-color,
+    cell-horizontal-border: solid $border-color,
+    odd-row-background-color: $odd-row-background-color,
+    range-selection-background-color: $range-selection-background-color,
+    cell-horizontal-padding: $cell-horizontal-padding
   ));
 
   // use CSS rules when no theme parameter is available
-  .ag-group-title-bar {
-    background-color: lightgreen;
+  .ag-header {
+    border-bottom-width: 2px;
+    .ag-header-cell {
+      .ag-header-cell-text {
+        font-size: $secondary-font-size;
+        font-weight: $secondary-font-weight;
+        white-space: pre-line;
+      }
+    }
   }
 
-  .ag-icon {
-    // required because Font Awesome uses bold glyphs for its icons
-    font-weight: bold;
+  .ag-overlay-loading-wrapper {
+    background-color: rgba(255, 255, 255, 0.667);
+    vertical-align: top;
+    padding-top: 72px;
+
+    .ag-overlay-loading-center {
+      color: $active-color;
+      font-size: 30px;
+      border: 0;
+      box-shadow: none;
+
+      i {
+        font-size: 60px;
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  // make checkboxes a smaller
+  .ag-checkbox-input-wrapper {
+    width: 12px;
+    height: 12px;
+    font-size: 12px;
+    line-height: 12px;
   }
 }
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}

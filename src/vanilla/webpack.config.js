@@ -1,8 +1,8 @@
 // config/webpack.dev.js
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    mode: 'none',
     entry: './grid.js',
     devtool: 'cheap-module-eval-source-map',
 
@@ -23,7 +23,7 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [
-                    'style-loader?sourceMap=true', 
+                    MiniCssExtractPlugin.loader,
                     'css-loader?sourceMap=true',
                     'resolve-url-loader',
                     'sass-loader?sourceMap=true'
@@ -41,6 +41,9 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: 'index.html'
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'ag-grid-acsl.css'
         })
     ]
 };

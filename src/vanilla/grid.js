@@ -10,6 +10,11 @@ var columnDefs = [{
     filter: true,
     width: 200,
     rowDrag: true
+},{
+    headerName: 'Multi\nline',
+    field: 'A',
+    filter: true,
+    rowDrag: true
 }].concat('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(letter => ({ field: letter })));
 
 // create 100 rows, and fill with random numbers
@@ -36,7 +41,9 @@ var gridOptions = {
         width: 100,
         filter: 'number',
         sortable: true,
-        resizable: true
+        resizable: true,
+        headerCheckboxSelection: isFirstColumn,
+        checkboxSelection: isFirstColumn
     },
     enableCharts: true,
     animateRows: true,
@@ -46,8 +53,9 @@ var gridOptions = {
     enableStatusBar: true,
     enableRangeSelection: true,
     rowDragManaged: true,
-    headerHeight: 50,
-    rowHeight: 40,
+    // headerHeight: 32,
+    // rowHeight: 32,
+    rowSelection: 'multiple',
     rowGroupPanelShow: 'always',
     pivotPanelShow: 'always', 
     pivotColumnGroupTotals: 'before',
@@ -76,9 +84,14 @@ var gridOptions = {
     rowData: rowData
 };
 
+function isFirstColumn(params) {
+  var displayedColumns = params.columnApi.getAllDisplayedColumns();
+  var thisIsFirstColumn = displayedColumns[0] === params.column;
+  return thisIsFirstColumn;
+}
 
 function initialise() {
-  if (cssHasLoaded("ag-theme-balham")) {
+  if (cssHasLoaded("ag-theme-alpine")) {
     new Grid(document.querySelector('#myGrid'), gridOptions);
   } else {
     setTimeout(initialise, 100);
