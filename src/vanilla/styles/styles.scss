@@ -12,12 +12,14 @@ $foreground-color: #555;
 $border-radius: 0;
 $border-color: #ddd;
 $odd-row-background-color: #fafafa;
-$range-selection-background-color: #afd9ee;
 $active-color: #4d7496;
+$range-selection-background-color: lighten($active-color, 25);
 $cell-horizontal-padding: 8px;
 
 .ag-theme-alpine {
   @include ag-theme-alpine((
+    alpine-active-color: $active-color,
+    range-selection-border-color: $active-color,
     font-family: $font-family,
     font-size: $font-size,
     foreground-color: $foreground-color,
@@ -31,7 +33,6 @@ $cell-horizontal-padding: 8px;
     border-color: $border-color,
     cell-horizontal-border: solid $border-color,
     odd-row-background-color: $odd-row-background-color,
-    range-selection-background-color: $range-selection-background-color,
     cell-horizontal-padding: $cell-horizontal-padding
   ));
 
