@@ -1,11 +1,9 @@
-// config/webpack.dev.js
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: './grid.js',
-    devtool: 'cheap-module-eval-source-map',
-
+    mode: 'development', // change this if you want the CSS to be minimized
     output: {
         filename: 'bundle.js'
     },
